@@ -1,0 +1,5 @@
+{% for client in client %}
+    <a href="{% url "client_edit" client.id %}"> ID{{ client.id }}</a>
+    Client`s name: {{ client.first_name }}, {{ client.last_name }};
+    {{ client.phone }}<br>
+{% endfor %}

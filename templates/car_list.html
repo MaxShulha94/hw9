@@ -1,0 +1,5 @@
+{% for car in car %}
+    <a href="{% url "car_edit" car.id %}"> ID{{ car.id }}</a>
+    Client`s name: {{ car.car_type }}, {{ car.color }};
+    {{ car.year }}, {{ car.blocked_by_order }} {{ car.owner }}<br>
+{% endfor %}
