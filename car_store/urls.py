@@ -11,6 +11,8 @@ from .views import (
     add_dealership,
     dealership_list,
     dealership_edit,
+    add_order,
+    order_list,
 )
 
 urlpatterns = [
@@ -25,4 +27,6 @@ urlpatterns = [
     path("dealership/", add_dealership, name="add_dealership"),
     path("dealerships", dealership_list, name="dealership_list"),
     path("dealership_edit/<int:pk>", dealership_edit, name="dealership_edit"),
+    path("order/", add_order, name="add_order"),
+    path("orders/", order_list, name="order_list"),
 ]

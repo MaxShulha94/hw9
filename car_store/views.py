@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .forms import ClientForm, CarTypeForm, CarForm, DealershipForm
+from .forms import ClientForm, CarTypeForm, CarForm, DealershipForm, OrderForm
 
-from .models import Client, CarType, Car, Dealership
+from .models import Client, CarType, Car, Dealership, Order
 
 """Client"""
 
@@ -125,3 +125,23 @@ def dealership_edit(request, pk):
 def dealership_list(request):
     dealership = Dealership.objects.all()
     return render(request, "dealership_list.html", {"dealership": dealership})
+
+
+"""Order"""
+
+
+def add_order(request):
+    if request.method == "GET":
+        form = OrderForm()
+        return render(request, "order_form.html", {"form": form})
+    form = OrderForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse("order_list"))
+
+    return render(request, "order_form.html", {"form": form})
+
+
+def order_list(request):
+    order = Order.objects.all()
+    return render(request, "order_list.html", {"order": order})
