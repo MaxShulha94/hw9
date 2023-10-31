@@ -16,7 +16,7 @@ def add_client(request):
             form.save()
             client = Client.objects.get(name=form.first_name, phone=form.phone)
             client_id = str(client.id)
-            return redirect(f'add_order/{{client_id}}')
+            return redirect(f'add_order/{client_id}')
     else:
         form = ClientForm()
 
@@ -131,24 +131,22 @@ def dealership_list(request):
 
 
 """Order"""
-def add_order(request, pk):
 
 
+
 def add_order(request, pk):
-    form = OrderForm(instance=pk)
-    return
-    # if request.method == "POST":
-    #
-    #     form = OrderForm(request.POST)
-    #     if form.is_valid():
-    #
-    #         form.save()
-    #
-    #         return redirect('order_list')
-    # else:
-    #     form = OrderForm()
-    #
-    # return render(request, "order_form.html", {"order_form": form})
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+
+        client = Client.objects.get(pk=pk)
+        form.client = client
+
+        if form.is_valid():
+            form.save()
+            return redirect("order_list")
+
+    form = OrderForm()
+    return render(request, "order_form.html", {"order_form": form})
 def order_list(request):
     order = Order.objects.all()
     return render(request, "order_list.html", {"order": order})

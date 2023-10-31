@@ -1,5 +1,5 @@
 <h1>Create a new order</h1>
-<form method="post" action="{% url 'add_order' client_id %}">
+<form method="post" action="{% url 'add_order'pk  %}">
 
     {% csrf_token %}
     {{ order_form.as_p }}
