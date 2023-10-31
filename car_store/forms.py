@@ -101,4 +101,4 @@ class OrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['client.', 'dealership', 'is_paid']
+        fields = ['client', 'dealership', 'is_paid']
