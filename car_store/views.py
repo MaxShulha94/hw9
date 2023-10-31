@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -13,7 +14,9 @@ def add_client(request):
         form = ClientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('add_order')
+            client = Client.objects.get(name=form.first_name, phone=form.phone)
+            client_id = str(client.id)
+            return redirect(f'add_order/{{client_id}}')
     else:
         form = ClientForm()
 
@@ -128,18 +131,24 @@ def dealership_list(request):
 
 
 """Order"""
+def add_order(request, pk):
 
-def add_order(request):
-    if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
 
-            return redirect('order_list')
-    else:
-        form = OrderForm()
-
-    return render(request, "order_form.html", {"order_form": form})
+def add_order(request, pk):
+    form = OrderForm(instance=pk)
+    return
+    # if request.method == "POST":
+    #
+    #     form = OrderForm(request.POST)
+    #     if form.is_valid():
+    #
+    #         form.save()
+    #
+    #         return redirect('order_list')
+    # else:
+    #     form = OrderForm()
+    #
+    # return render(request, "order_form.html", {"order_form": form})
 def order_list(request):
     order = Order.objects.all()
     return render(request, "order_list.html", {"order": order})
