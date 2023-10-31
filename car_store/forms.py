@@ -5,13 +5,9 @@ from .models import Client, CarType, Car, Dealership, Order
 
 
 class ClientForm(forms.ModelForm):
-    cars = forms.ModelMultipleChoiceField(queryset=Car.objects.all(), required=False)
-    dealerships = forms.ModelMultipleChoiceField(
-        queryset=Dealership.objects.all(), required=False
-    )
-    orders = forms.ModelMultipleChoiceField(
-        queryset=Order.objects.all(), required=False
-    )
+    # cars = forms.ModelMultipleChoiceField(queryset=Car.objects.all(), required=False)
+    # dealerships = forms.ModelMultipleChoiceField(queryset=Dealership.objects.all(), required=False)
+    # orders = forms.ModelMultipleChoiceField(queryset=Order.objects.all(), required=False)
 
     class Meta:
         model = Client
@@ -98,17 +94,11 @@ class DealershipForm(forms.ModelForm):
         return name
 
 
+
+
 class OrderForm(forms.ModelForm):
-    reserved_cars = forms.ModelMultipleChoiceField(
-        queryset=Car.objects.all(), required=False
-    )
+
 
     class Meta:
         model = Order
-        fields = ["client", "dealership", "is_paid"]
-
-    def clean_name(self):
-        name = self.cleaned_data["name"]
-        if len(name) > 50:
-            raise forms.ValidationError("This name is too long")
-        return name
+        fields = ['client.', 'dealership', 'is_paid']

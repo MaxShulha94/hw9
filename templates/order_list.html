@@ -1,0 +1,4 @@
+{% for order in order %}
+    <a>{{ order.id}}. Client:{{ order.client }}, Dealership: {{ order.dealership }}, Status: {{ order.is_paid }};</a><br>
+
+{% endfor %}

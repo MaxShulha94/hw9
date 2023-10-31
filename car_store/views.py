@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .forms import ClientForm, CarTypeForm, CarForm, DealershipForm, OrderForm
@@ -9,13 +9,13 @@ from .models import Client, CarType, Car, Dealership, Order
 
 
 def add_client(request):
-    if request.method == "GET":
+    if request.method == "POST":
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('add_order')
+    else:
         form = ClientForm()
-        return render(request, "client_form.html", {"form": form})
-    form = ClientForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect(reverse("client_list"))
 
     return render(request, "client_form.html", {"form": form})
 
@@ -35,8 +35,8 @@ def client_edit(request, pk):
 
 
 def client_list(request):
-    client = Client.objects.all()
-    return render(request, "client_list.html", {"client": client})
+    clients = Client.objects.all()
+    return render(request, "client_list.html", {"clients": clients})
 
 
 """CarType"""
@@ -129,19 +129,17 @@ def dealership_list(request):
 
 """Order"""
 
-
 def add_order(request):
-    if request.method == "GET":
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('order_list')
+    else:
         form = OrderForm()
-        return render(request, "order_form.html", {"form": form})
-    form = OrderForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect(reverse("order_list"))
 
-    return render(request, "order_form.html", {"form": form})
-
-
+    return render(request, "order_form.html", {"order_form": form})
 def order_list(request):
     order = Order.objects.all()
     return render(request, "order_list.html", {"order": order})

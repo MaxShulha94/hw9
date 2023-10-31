@@ -16,7 +16,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path("client/", add_client, name="add_client"),
+    path("", add_client, name="add_client"),
     path("clients/", client_list, name="client_list"),
     path("client_edit/<int:pk>", client_edit, name="client_edit"),
     path("car_type/", add_car_type, name="add_car_type"),
@@ -25,7 +25,7 @@ urlpatterns = [
     path("cars/", car_list, name="car_list"),
     path("car_edit/<int:pk>", car_edit, name="car_edit"),
     path("dealership/", add_dealership, name="add_dealership"),
-    path("dealerships", dealership_list, name="dealership_list"),
+    path("dealerships/", dealership_list, name="dealership_list"),
     path("dealership_edit/<int:pk>", dealership_edit, name="dealership_edit"),
     path("order/", add_order, name="add_order"),
     path("orders/", order_list, name="order_list"),

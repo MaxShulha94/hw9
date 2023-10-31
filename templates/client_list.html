@@ -1,5 +1,11 @@
-{% for client in client %}
-    <a href="{% url "client_edit" client.id %}"> ID{{ client.id }}</a>
-    Client`s name: {{ client.first_name }}, {{ client.last_name }};
-    {{ client.phone }}<br>
-{% endfor %}
+<h1>Our clients:</h1>
+<ul>
+    {% for client in clients %}
+        <li>
+            <a href="{% url 'client_edit' client.id %}"><button>Edit client {{ '' }}</button></a><br>
+            First name: {{ client.first_name }}, Last name: {{ client.last_name }}, Phone: {{ client.phone }}
+        </li>
+    {% empty %}
+        <li>List is empty</li>
+    {% endfor %}
+</ul>

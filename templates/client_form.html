@@ -1,6 +1,10 @@
-<form action="" method="post">
+<h1>Add new client</h1>
+<form method="post" action="{% url 'add_order' %}">
     {% csrf_token %}
-    {{ form.errors }}
-    {{ form }}
-    <input type="submit" value="OK" />
+    {{ form.as_p }}
+
+    <button type="submit">Make order</button>
 </form>
+
+<a href="{% url 'dealership_list' %}"><button>See our dealerships</button></a>
+<a href="{% url 'car_list' %}"><button>See available cars</button></a>
